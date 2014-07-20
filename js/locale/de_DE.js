@@ -9,5 +9,10 @@ App.core.de_DE = {
     "Prototcol" : "Protokoll",
     "Developer Options" : "Entwickler Optionen",
     "Cancel" : "Abbrechen",
-    "Reload App" : "Neu Laden"
+    "Window is open" : "Fenster ist offen",
+    "Window is closed" : "Fenster ist zu",
+    "Reload App" : "Neu Laden",
+    "Mode: AUTO" : "Modus: Automatik",
+    "Mode: MANU" : "Modus: Manuell",
+    "Battery:" : "Batterie:"
 };

@@ -1,0 +1,105 @@
+.overview {
+    overflow: scroll;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.overview .valve {
+    border-bottom: 1px solid white;
+    padding: 10px 20px;
+}
+
+.overview .name {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.overview .name .update {
+    font-weight: normal;
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+}
+
+.overview .attr img {
+    float: left;
+}
+.overview .attr div.text {
+    line-height: 48px;
+    display: inline-block;
+}
+
+.overview .wanted,
+.overview .temp {
+    width: 50%;
+    float: left;
+}
+.overview .wanted {
+    float: right;
+    height: 48px;
+    text-align: center;
+}
+.overview .wanted .handle {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    line-height: 48px;
+    position: relative;
+    z-index: 0;
+    float: left;
+    margin-right: 16px;
+}
+.overview .wanted .valve-pos {
+    line-height: 48px;
+    float:left;
+}
+.overview .wanted .text {
+    color: black;
+    position: relative;
+    z-index: 1;
+}
+.overview .wanted .indicator-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    background-color: white;
+    z-index: 0;
+    box-shadow: inset 0 0 25px 5px rgb(197, 197, 197);
+}
+.overview .wanted .indicator {
+    position: absolute;
+    width: 4px;
+    height: 10px;
+    background: red;
+    left: 22px;
+    top: -3px;
+}
+
+.overview .window-status {
+    clear: left;
+}
+
+.overview .window-status,
+.overview .mode,
+.overview .batt,
+.overview .error {
+    padding: 2px;
+}
+
+
+.overview .batt.ok {
+    background: rgb(47, 90, 47);
+}
+.overview .name.warning,
+.overview .batt.warning {
+    background: rgb(182, 138, 0);
+}
+.overview .batt.error,
+.overview .error {
+    background: rgb(83, 21, 21);
+}
