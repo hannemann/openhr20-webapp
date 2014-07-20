@@ -1,0 +1,7 @@
+#viewport.config {
+    overflow: auto;
+}
+#settings {
+    height: 100%;
+    padding: 20px;
+}

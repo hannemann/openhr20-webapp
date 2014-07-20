@@ -1,0 +1,145 @@
+* {
+    font-family: Source Sans Pro, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #696969;
+    position: relative;
+    z-index: 0;
+}
+
+#splash {
+    margin-top: 20px;
+}
+
+#splash img {
+    margin: 0 auto;
+    display: block;
+}
+
+#splash * {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.shadow {
+    box-shadow: 0 3px 15px rgba(0,0,0,0.5);
+}
+
+.clearer:before,
+.clearer:after {
+    content:"";
+    display:table;
+    font-size: 0;
+    line-height: 0;
+}
+.clearer:after {
+    clear:both;
+}
+
+#viewport {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: calc(100% - 50px);
+    width: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+
+.button {
+	background: none repeat scroll 0 0 #FFA500;
+	border: 1px solid #000000;
+	float: right;
+	margin-left: 5px;
+	padding: 5px 10px;
+	cursor: default;
+}
+
+.list-item {
+    position: relative;
+}
+
+.list-item span {
+    width: calc(100% / 3);
+    display: block;
+    float: left;
+    border-bottom: 1px solid rgb(155,155,155);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.rating-1:after,
+.rating-2:after,
+.rating-3:after,
+.rating-4:after,
+.rating-5:after {
+    position: absolute;
+    bottom: 0;
+    right: 25px;
+    color: #ffaf17;
+}
+.epg-search-view .rating-1:after,
+.epg-search-view .rating-2:after,
+.epg-search-view .rating-3:after,
+.epg-search-view .rating-4:after,
+.epg-search-view .rating-5:after {
+    right: 35px;
+}
+
+.rating-1:after {
+    content: '★';
+}
+
+.rating-2:after {
+    content: '★★';
+}
+
+.rating-3:after {
+    content: '★★★';
+}
+
+.rating-4:after {
+    content: '★★★★';
+}
+
+.rating-5:after {
+    content: '★★★★★';
+}
+
+.top-tipp:before {
+    content: '\1F44D';
+    position: absolute;
+    bottom: 1px;
+    right: 10px;
+    color: #ffaf17;
+}
+.epg-search-view .top-tipp:before {
+    right: 20px;
+}
