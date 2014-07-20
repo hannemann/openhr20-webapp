@@ -234,6 +234,11 @@ App.Abstract.Module.prototype.getClass = function (type, _class, data) {
         path = this.namespace + '.' + this.name + '.' + type + '.' + _class,
         constructor = App.Lib.factory.getConstructor(path), instance;
 
+    if ("undefined" !== typeof constructor.prototype.cacheKey && null === constructor.prototype.cacheKey) {
+
+        return App.Lib.factory.getClass(path);
+    }
+
     if ("undefined" !== typeof constructor.prototype.cacheKey || (data && data.cacheKey)) {
 
         cacheKey = constructor.prototype.cacheKey || data.cacheKey;
