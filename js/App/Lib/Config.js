@@ -168,7 +168,8 @@ App.Lib.Config.prototype.setFieldValue = function (k, v) {
 App.Lib.Config.prototype.defaults = {
     "theme" : "default",
     "language" : "de_DE",
-    "protocol" : "http"
+    "protocol" : "http",
+    "port" : 80
 };
 
 App.Lib.Config.prototype.categories = {
