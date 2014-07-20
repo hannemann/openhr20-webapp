@@ -74,6 +74,7 @@ class contend_status extends contend {
 				$response['valves'][$valve]['wanted'] = $row['wanted'];
 				$response['valves'][$valve]['valve_pos'] = $row['valve'];
 				$response['valves'][$valve]['real_temp'] = $row['real'];
+				$response['valves'][$valve]['name'] = $valve;
 				$response['valves'][$valve]['battery'] = array();
 
 
@@ -131,6 +132,7 @@ class contend_status extends contend {
 					$response['valves'][$v]['wanted'] = $row['wanted'];
 					$response['valves'][$v]['valve_pos'] = $row['valve'];
 					$response['valves'][$v]['real_temp'] = $row['real'];
+					$response['valves'][$v]['name'] = $v;
 					$response['valves'][$v]['battery'] = array();
 
 					if ($GLOBALS['error_mask']['BAT_E'] & $row['error']) {
