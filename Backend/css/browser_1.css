@@ -1,77 +1,87 @@
-body { 
-  background: white;	
-  margin:0;	
-  padding:3px; 
-  font-family: sans-serif; 
+body {
+    background: white;
+    margin: 0;
+    padding: 3px;
+    font-family: sans-serif;
 }
 
 #content {
-  width: 100%;
-  margin:1em auto;
-  border: 1px solid black;
-  text-align:left;
-  max-width: 1200px;
-  }
+    width: 100%;
+    margin: 1em auto;
+    border: 1px solid black;
+    text-align: left;
+    max-width: 1200px;
+}
+
 #sidebar {
-  float: left;
-  width: 15em;
-  margin:0; padding:0;
-  border: 1px solid black;
-  }
+    float: left;
+    width: 15em;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+}
+
 #sidebar-content {
-  margin:0; padding: 0.5em 1em;
-  }
+    margin: 0;
+    padding: 0.5em 1em;
+}
+
 #main {
-  margin:0 0 0 15em; padding:0;
-  border: 1px solid black;
-  }
+    margin: 0 0 0 15em;
+    padding: 0;
+    border: 1px solid black;
+}
+
 #main-content {
-  margin:0; padding: 0.5em 1em;
-  font-size: 100%;
-  }
+    margin: 0;
+    padding: 0.5em 1em;
+    font-size: 100%;
+}
+
 hr.cleaner {
-  clear:both;
-  height:1px;
-  margin: -1px 0 0 0; padding:0;
-  border:none;
-  visibility: hidden;
-  }
+    clear: both;
+    height: 1px;
+    margin: -1px 0 0 0;
+    padding: 0;
+    border: none;
+    visibility: hidden;
+}
 
 table, th, td, tr {
-  border: 1px solid blue;
-  border-spacing: 0px;
+    border: 1px solid blue;
+    border-spacing: 0px;
 }
 
 td.ok {
-  background-color: green;
+    background-color: green;
 }
 
 td.warning {
-  background-color: yellow;
+    background-color: yellow;
 }
 
 td.error {
-  background-color: red;
+    background-color: red;
 }
 
 th {
-  background-color: yellow;
+    background-color: yellow;
 }
 
 table {
-  margin: 0.2em;
+    margin: 0.2em;
 }
 
 #sidebar .active {
-  background-color: #99FF00;
-  /* border: 1px solid blue; */
+    background-color: #99FF00;
+    /* border: 1px solid blue; */
 }
 
 input.disabled, select.disabled, button.disabled {
     background-color: lightgrey;
     color: gray;
 }
-	
+
 #chart div.button {
     position: absolute;
     cursor: pointer;
