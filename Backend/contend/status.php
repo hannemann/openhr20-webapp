@@ -88,12 +88,14 @@ class contend_status extends contend {
 				$response['valves'][$valve]['battery']['voltage'] = $row['battery'];
 				$response['valves'][$valve]['errors'] = array();
 
+				$response['valves'][$valve]['errors']['status'] = 'ok';
 				foreach ($GLOBALS['error_mask'] as $k => $v) {
 					if ($v & $row['error']) {
+						$response['valves'][$valve]['errors']['status'] = 'error';
 						$response['valves'][$valve]['errors'][$v] = $k;
 					}
 				}
-				$response['valves'][$valve]['window'] = $row['window'] ? "open" : "close";
+				$response['valves'][$valve]['window'] = $row['window'];
 
 				$result = $db->query("SELECT * FROM versions WHERE addr=$this->addr LIMIT 1");
 				if ($row = $result->fetchArray()) {
@@ -145,12 +147,14 @@ class contend_status extends contend {
 					$response['valves'][$v]['battery']['voltage'] = $row['battery'];
 					$response['valves'][$v]['errors'] = array();
 
+					$response['valves'][$v]['errors']['status'] = 'ok';
 					foreach ($GLOBALS['error_mask'] as $key => $val) {
 						if ($val & $row['error']) {
+							$response['valves'][$v]['errors']['status'] = 'error';
 							$response['valves'][$v]['errors'][$val] = $key;
 						}
 					}
-					$response['valves'][$v]['window'] = $row['window'] ? "open" : "close";
+					$response['valves'][$v]['window'] = $row['window'];
 				}
 			}
 //			global $PLOTS_DIR, $RRD_DAYS, $RRD_ENABLE;
