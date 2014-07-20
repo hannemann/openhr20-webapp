@@ -68,4 +68,5 @@ if ($refresh) {
 	$response['refresh'] = true;
 }
 
+header("Content-type: application/json");
 echo json_encode($response);
