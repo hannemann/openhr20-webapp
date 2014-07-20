@@ -25,11 +25,9 @@ $refresh = false;
 		$page = "status";
 	}
 	$contend_class = "contend_$page";
-	if (isset($_GET['css'])) {
-		$css = cleanString($_GET['css']) . '.css';
-	} else {
-		$css = "browser_1.css";
-	}
+
+	if (!file_exists("contend/$page.php")) die('Motherfucker!');
+
 	include "contend/$page.php";
 	$contend = new $contend_class($addr);
 	$cmd1 = $contend->controller();
@@ -63,39 +61,11 @@ $refresh = false;
 	}
 }
 
+$response = $contend->view();
 
-// view part
-echo '<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<title>Heating</title>  <meta http-equiv="content-language" content="en" />
-';
 if ($refresh) {
-	if ($page == 'queue') echo '<meta http-equiv="Refresh" content="' . $refresh_value . '; URL=' . "/?page=queue&addr=$addr\" />\n";
-	else echo '<meta http-equiv="Refresh" content="' . $refresh_value . '; URL=' . $_SERVER["REQUEST_URI"] . "\" />\n";
+
+	$response['refresh'] = true;
 }
-echo '<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <style media="screen" type="text/css"> @import url(';
 
-echo "'css/$css'";
-echo '); </style></head><body>';
-
-echo '<div id="content">';
-echo '<div id="sidebar"><div id="sidebar-content">';
-include "menu.php";
-echo '</div></div>';
-
-// just test
-echo '<div id="main"><div id="main-content">';
-$contend->view();
-echo '</div></div>';
-echo '<hr class="cleaner" />';
-
-echo '<div class="debug">';
-echo '<div>';
-$contend->debug();
-echo '</div>';
-echo '<div>script duration ' . sprintf("%.2f", microtime(true) - $ts) . "sec</div>\n";
-echo '</div>';
-echo "</body></html>";
+echo json_encode($response);
