@@ -169,7 +169,8 @@ App.Lib.Config.prototype.defaults = {
     "theme" : "default",
     "language" : "de_DE",
     "protocol" : "http",
-    "port" : 80
+    "port" : 80,
+    "start" : "Gui.Status"
 };
 
 App.Lib.Config.prototype.categories = {
