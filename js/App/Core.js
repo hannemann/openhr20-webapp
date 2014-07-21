@@ -115,13 +115,7 @@ App.Core.prototype.run = function () {
             }
 		}
 
-        $(document).one('infoupdate', $.proxy(function () {
-
-            this.dispatch(start);
-
-        }, this));
-
-        $.event.trigger('updateinfo');
+        this.dispatch(start);
 
 	} else {
 
