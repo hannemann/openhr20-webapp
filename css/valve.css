@@ -1,0 +1,58 @@
+.thermometer-wrapper {
+    position: relative;
+    z-index: 0;
+}
+.thermometer-wrapper .ball,
+.thermometer-wrapper .scala {
+    position: absolute;
+    z-index: 0;
+}
+.thermometer-wrapper .scala {
+    position: absolute;
+    z-index: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 30px;
+    height: 305px;
+    left: calc(50% - 15px);
+    top: 20px;
+    background-image: linear-gradient(180deg, red, #ff8900, green, #0600ff);
+    box-shadow: inset 0 0 19px 5px rgba(200,200,200,.65);
+}
+.thermometer-wrapper .ball {
+    position: absolute;
+    z-index: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    top: 305px;
+    left: calc(50% - 30px);
+    background: -webkit-radial-gradient(center,circle farthest-corner, rgb(147, 156, 255), blue 100%);
+}
+.thermometer-wrapper .slider {
+    background: rgba(0,0,0,.5);
+    width: 72px;
+    height: 26px;
+    line-height: 26px;
+    left: calc(50% - 36px);
+    position: absolute;
+    z-index: 1;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+}
+.thermometer-wrapper .slider div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 8px;
+}
+.thermometer-wrapper .slider .sliderText {
+    z-index: 0;
+}
+.thermometer-wrapper .slider .activator {
+    background: rgba(255,255,255,.01);
+    z-index: 1;
+}

@@ -93,7 +93,7 @@ App.Core.prototype.run = function () {
         start = startConfig;
     } else {
 
-        App.config.setItem('start', 'Gui.Epg');
+        App.config.setItem('start', 'Gui.Status');
         this.getModule('Gui.Menubar').getController('Default').initial = true;
         this.initial = true;
     }

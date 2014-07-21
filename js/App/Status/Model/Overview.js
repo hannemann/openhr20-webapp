@@ -2,6 +2,8 @@ App.Status.Model.Overview = function () {};
 
 App.Status.Model.Overview.prototype = new App.Abstract.Model();
 
+App.Status.Model.Overview.prototype.cacheKey = null;
+
 App.Status.Model.Overview.prototype.getResource = function () {
 
     return this.module.getResource('Overview');

@@ -40,6 +40,25 @@ Gui.Status.prototype.inDrawer = true;
 Gui.Status.prototype.startPage = true;
 
 /**
+ * context menu definition
+ * @type {{}}
+ */
+Gui.Status.prototype.contextMenu = {
+
+    "Refresh" : {
+        "labels" : {
+            "on" : App.core.translate("Refresh")
+        },
+        "state" : "on",
+        "scope" : 'Gui.Status',
+        "fn" : function () {
+
+            this.refresh();
+        }
+    }
+};
+
+/**
  * dispatch requested type
  */
 Gui.Status.prototype.dispatch = function () {
@@ -55,6 +74,19 @@ Gui.Status.prototype.destruct = function () {
 
     this.getController('Overview').destructView();
     this.cache.flush();
+};
+
+/**
+ * destroy module
+ */
+Gui.Status.prototype.refresh = function () {
+
+    var me = this;
+    setTimeout(function () {
+        me.getController('Overview').destructView();
+        me.cache.flush();
+        me.dispatch();
+    }, 150);
 };
 
 /**
