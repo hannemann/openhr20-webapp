@@ -10,6 +10,11 @@ Gui.Window.View.ContextMenu = function () {};
 Gui.Window.View.ContextMenu.prototype = new Gui.Window.View.Abstract();
 
 /**
+ * omit caching
+ */
+Gui.Window.View.ContextMenu.prototype.cacheKey = null;
+
+/**
  * @type {boolean}
  */
 Gui.Window.View.ContextMenu.prototype.isModal = true;

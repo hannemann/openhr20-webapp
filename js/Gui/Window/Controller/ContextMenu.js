@@ -11,6 +11,11 @@ Gui.Window.Controller.ContextMenu = function () {};
 Gui.Window.Controller.ContextMenu.prototype = new Gui.Window.Controller.Abstract();
 
 /**
+ * omit caching
+ */
+Gui.Window.Controller.ContextMenu.prototype.cacheKey = null;
+
+/**
  * initialize view
  */
 Gui.Window.Controller.ContextMenu.prototype.init = function () {
