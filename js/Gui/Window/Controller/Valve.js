@@ -6,7 +6,7 @@ Gui.Window.Controller.Valve.prototype.cacheKey = null;
 
 Gui.Window.Controller.Valve.prototype.init = function () {
 
-    this.view = this.module.getView('Valve', this.data);
+    this.view = this.module.getView('Valve', {"valve" : this.getData('valve')});
 
     Gui.Window.Controller.Abstract.prototype.init.call(this);
 
@@ -35,6 +35,12 @@ Gui.Window.Controller.Valve.prototype.addObserver = function () {
     $(window).on('mouseup', $.proxy(this.handleSliderUp, this));
 
     $(window).on('touchend', $.proxy(this.handleSliderUp, this));
+
+    this.view.cancel.one('click', function () {
+        history.back();
+    });
+
+    this.view.ok.one('click', $.proxy(this.sendCommand, this));
 };
 
 Gui.Window.Controller.Valve.prototype.handleSliderDown = function (e) {
@@ -71,8 +77,22 @@ Gui.Window.Controller.Valve.prototype.handleSliderMove = function (e) {
 
 Gui.Window.Controller.Valve.prototype.handleSliderUp = function () {
 
+    if (this.sliderMove) {
+        this.view.setSliderPos();
+    }
     this.sliderMove = false;
-    this.view.setSliderPos();
+};
+
+Gui.Window.Controller.Valve.prototype.sendCommand = function () {
+
+    history.back();
+
+    this.getData('valve')
+        .setData(
+        'request', {
+            'wanted':parseFloat(this.view.sliderText.text()) * 100
+        }
+    ).update();
 };
 
 /**

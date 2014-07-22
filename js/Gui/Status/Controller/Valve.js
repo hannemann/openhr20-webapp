@@ -1,9 +1,22 @@
+/**
+ * @class
+ * @constructor
+ */
 Gui.Status.Controller.Valve = function () {};
 
+/**
+ * @type {App.Abstract.Controller}
+ */
 Gui.Status.Controller.Valve.prototype = new App.Abstract.Controller();
 
-Gui.Status.Controller.Valve.prototype.cacheKey = null;
+/**
+ * @type {null}
+ */
+Gui.Status.Controller.Valve.prototype.cacheKey = 'name';
 
+/**
+ * dispatch view
+ */
 Gui.Status.Controller.Valve.prototype.dispatchView = function () {
 
     this.view = this.module.getView('Valve', this.data);
@@ -17,11 +30,18 @@ Gui.Status.Controller.Valve.prototype.dispatchView = function () {
     App.Abstract.Controller.prototype.dispatchView.call(this);
 };
 
+/**
+ * add event listeners
+ */
 Gui.Status.Controller.Valve.prototype.addObserver = function () {
 
     this.view.temp.on('click', $.proxy(this.handleTempClick, this));
 };
 
+/**
+ * handle click on temperature icon
+ * @param {jQuery.Event} e
+ */
 Gui.Status.Controller.Valve.prototype.handleTempClick = function (e) {
 
     e.preventDefault();

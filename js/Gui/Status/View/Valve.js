@@ -2,9 +2,11 @@ Gui.Status.View.Valve = function () {};
 
 Gui.Status.View.Valve.prototype = new App.Abstract.View();
 
-Gui.Status.View.Valve.prototype.cacheKey = null;
+Gui.Status.View.Valve.prototype.cacheKey = 'name';
 
 Gui.Status.View.Valve.prototype.init = function () {
+
+    this.valve = this.getData('valve');
 
     this.node = $('<div class="valve attr">');
     this.name = $('<div class="name attr">').appendTo(this.node);
@@ -24,15 +26,14 @@ Gui.Status.View.Valve.prototype.render = function () {
 
 Gui.Status.View.Valve.prototype.addName = function () {
 
-    var u = new Date(this.getData('last_update')*1000);
+    var u = new Date(this.valve.getData('last_update')*1000);
 
-    this.name.text(this.getData('name'));
+    this.name.text(this.valve.getData('name'));
     this.name.append($('<div class="update">').text(
-        u.getHours() + ':' + u.getMinutes() + ':' + u.getSeconds() + ' '
-        + u.getDate() + '.' + (u.getMonth() + 1) + '.' + u.getFullYear()
+        this.helper().getDateTimeString(u)
     ));
 
-    this.name.addClass(this.getData('status').type);
+    this.name.addClass(this.valve.getData('status').type);
 
     return this;
 };
@@ -41,14 +42,14 @@ Gui.Status.View.Valve.prototype.addTemp = function () {
 
     $('<img>').attr({'src':App.image.getIcon(),"width":48,"height":48}).prependTo(this.temp);
 
-    this.temp.append($('<div class="text">').text(this.getData('real_temp') / 100 + ' °C'));
+    this.temp.append($('<div class="text">').text(this.valve.getData('real_temp') / 100 + ' °C'));
 
     return this;
 };
 
 Gui.Status.View.Valve.prototype.addWanted = function () {
 
-    var d = this.getData('valve_pos');
+    var d = this.valve.getData('valve_pos');
 
     if (d <= 50) {
 
@@ -67,8 +68,8 @@ Gui.Status.View.Valve.prototype.addWanted = function () {
                 '-ms-transform':'rotate('+d+'deg)',
                 'transform': 'rotate('+d+'deg)'
             }).append('<div class="indicator">'))
-            .append($('<div class="text">').text(this.getData('wanted') / 100 + ' °C'))
-    ).append($('<div class="valve-pos">').text(this.getData('valve_pos') + '%'));
+            .append($('<div class="text">').text(this.valve.getData('valve_pos') + '%'))
+    ).append($('<div class="temp">').text(this.valve.getData('wanted') / 100 + ' °C'));
 
     return this;
 };
@@ -76,7 +77,7 @@ Gui.Status.View.Valve.prototype.addWanted = function () {
 Gui.Status.View.Valve.prototype.addWindow = function () {
 
     this.window.text(
-        App.core.translate('Window is ' + (this.getData('window') == '0' ? 'closed' : 'open'))
+        App.core.translate('Window is ' + (this.valve.getData('window') == '0' ? 'closed' : 'open'))
     );
 
     return this;
@@ -84,23 +85,23 @@ Gui.Status.View.Valve.prototype.addWindow = function () {
 
 Gui.Status.View.Valve.prototype.addMode = function () {
 
-    this.mode.text(App.core.translate('Mode: ' + this.getData('mode')));
+    this.mode.text(App.core.translate('Mode: ' + this.valve.getData('mode')));
 
     return this;
 };
 
 Gui.Status.View.Valve.prototype.addBattery = function () {
 
-    this.batt.text(App.core.translate('Battery:') + ' ' + this.getData('battery').voltage/1000 + ' V');
+    this.batt.text(App.core.translate('Battery:') + ' ' + this.valve.getData('battery').voltage/1000 + ' V');
 
-    this.batt.addClass(this.getData('battery').status);
+    this.batt.addClass(this.valve.getData('battery').status);
 
     return this;
 };
 
 Gui.Status.View.Valve.prototype.addError = function () {
 
-    var errors = this.getData('errors'), text = [], i;
+    var errors = this.valve.getData('errors'), text = [], i;
 
     if (errors.status == 'error') {
 

@@ -15,9 +15,11 @@ Gui.Window.View.Valve.prototype.isModal = true;
 
 Gui.Window.View.Valve.prototype.render = function () {
 
-    this.addHeader().addThermometer().setTemp();
+    this.valve = this.getData('valve');
 
-    this.node.addClass('collapsed');
+    this.addHeader().addButtons().addThermometer().setTemp();
+
+    this.node.addClass('collapsed tool-window');
 
     Gui.Window.View.Abstract.prototype.render.call(this);
 
@@ -26,7 +28,7 @@ Gui.Window.View.Valve.prototype.render = function () {
 
 Gui.Window.View.Valve.prototype.addHeader = function () {
 
-    this.header.append($('<h2 class="name">').text(this.getData('name')));
+    this.header.append($('<h2 class="name">').text(this.valve.getData('name')));
 
     return this;
 };
@@ -45,9 +47,22 @@ Gui.Window.View.Valve.prototype.addThermometer = function () {
     return this;
 };
 
+/**
+ * add buttons
+ * @returns {Gui.Window.View.Valve}
+ */
+Gui.Window.View.Valve.prototype.addButtons = function () {
+
+    this.cancel = $('<div class="button button-cancel">').text(App.core.translate('Cancel')).appendTo(this.node);
+
+    this.ok = $('<div class="button button-confirm">').text('OK').appendTo(this.node);
+
+    return this;
+};
+
 Gui.Window.View.Valve.prototype.setTemp = function () {
 
-    var temp = this.getData('wanted');
+    var temp = this.valve.getData('wanted');
 
     temp = temp%100 == 0 ? temp / 100 + '.0' : temp / 100;
 
@@ -55,7 +70,7 @@ Gui.Window.View.Valve.prototype.setTemp = function () {
 };
 Gui.Window.View.Valve.prototype.getSliderPos = function () {
 
-    return Math.ceil(275 - (240 * (this.getData('wanted') / 10 - 100) / 200));
+    return Math.ceil(275 - (240 * (this.valve.getData('wanted') / 10 - 100) / 200));
 };
 
 /**
@@ -68,26 +83,26 @@ Gui.Window.View.Valve.prototype.setSliderPos = function (pos) {
 
     if (pos) {
 
-        pos -= this.body.offset().top;
+        pos -= this.thermo.offset().top;
     } else {
 
         this.slider.animate({"top":this.sliderPos + 'px'}, 'fast');
         return;
     }
 
-    if (pos >= 275) {
-        pos = 275;
+    if (pos >= 255) {
+        pos = 255;
     }
-    if (pos <= 35) {
-        pos = 35;
+    if (pos <= 15) {
+        pos = 15;
     }
     this.slider.css({"top":pos + 'px'});
 
-    temp = (((275 - pos) / 6) * 0.5 + 10) * 100;
+    temp = (((255 - pos) / 6) * 0.5 + 10) * 100;
 
     temp = temp%100 == 0 ? temp / 100 + '.0' : temp / 100;
 
-    if ((pos - 35) % 6 == 0) {
+    if ((pos - 15) % 6 == 0) {
         this.sliderText.text(temp + ' °C');
         this.sliderPos = pos;
     }

@@ -1,18 +1,59 @@
+/**
+ * @class
+ * @constructor
+ */
 App.Status.Model.Overview = function () {};
 
+/**
+ * @type {App.Abstract.Model}
+ */
 App.Status.Model.Overview.prototype = new App.Abstract.Model();
 
-App.Status.Model.Overview.prototype.cacheKey = null;
-
-App.Status.Model.Overview.prototype.getResource = function () {
-
-    return this.module.getResource('Overview');
-};
-
+/**
+ * initialize
+ */
 App.Status.Model.Overview.prototype.init = function () {
 
-    var resource = this.getResource();
+    this.initValves(
+        this.module.getResource('Overview').getValves()
+    );
+};
 
-    this.initData(resource.load({"data":{"page":"status","addr":0},"async":false}).responseJSON);
+/**
+ * init collection
+ */
+App.Status.Model.Overview.prototype.initValves = function (valves) {
+
+    var i;
+
+    this.valves = new App.Lib.Object();
+    this.valves.initData();
+
+    for (i in valves) {
+
+        if (valves.hasOwnProperty(i)) {
+
+            this.valves.setData(i, this.module.getModel('Valve', valves[i]));
+        }
+    }
+};
+
+/**
+ * retrieve specific valve
+ * @param {string} name
+ * @returns {App.Status.Model.Valve}
+ */
+App.Status.Model.Overview.prototype.getValve = function (name) {
+
+    return this.valves.getData(name);
+};
+
+/**
+ * retrieve valves collection
+ * @returns {App.Lib.Object|*}
+ */
+App.Status.Model.Overview.prototype.getValves = function () {
+
+    return this.valves.getData();
 };
 

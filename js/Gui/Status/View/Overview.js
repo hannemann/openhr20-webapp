@@ -16,13 +16,13 @@ Gui.Status.View.Overview.prototype.render = function () {
 
 Gui.Status.View.Overview.prototype.addValves = function () {
 
-    var valves = this.getData('valves'), i;
+    var valves = this.getData('valves'), me = this;
 
-    for (i in valves) {
+    this.each(function (name, valve) {
 
-        if (valves.hasOwnProperty(i)) {
-
-            this.module.getController('Valve', valves[i]).dispatchView();
-        }
-    }
+            me.module.getController('Valve', {
+                "name":name,
+                "valve":valve
+            }).dispatchView();
+    });
 };

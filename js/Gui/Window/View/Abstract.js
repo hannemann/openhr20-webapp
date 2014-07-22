@@ -25,12 +25,12 @@ Gui.Window.View.Abstract.prototype.init = function () {
         this.addCloseButton();
     }
 
+    this.body = $('<div class="window-body">').appendTo(this.node);
+
     if (this.hasHeader) {
-        this.header = $('<div class="window-header clearer">').appendTo(this.node);
+        this.header = $('<div class="window-header clearer">').appendTo(this.body);
         this.node.addClass('has-header');
     }
-
-    this.body = $('<div class="window-body">').appendTo(this.node);
 
 };
 
@@ -170,7 +170,7 @@ Gui.Window.View.Abstract.prototype.destruct = function () {
                 }
             });
 
-            $('body').addClass('hide-modal show-modal');
+            $('body').toggleClass('hide-modal show-modal');
 
         } else {
 

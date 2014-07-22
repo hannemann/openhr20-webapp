@@ -24,7 +24,7 @@ class contend_queue extends contend {
 
 
 	public function controller() {
-		global $db, $_GET;
+
 		$cmd = array();
 		// timmers
 
@@ -60,20 +60,22 @@ class contend_queue extends contend {
 
 	public function view() {
 		global $db, $refresh_value;
-		if ($this->addr > 0)
-			$result = $db->query("SELECT count(*) AS cnt FROM command_queue WHERE addr=$this->addr");
-		else
-			$result = $db->query("SELECT count(*) AS cnt FROM command_queue");
-		$row = $result->fetchArray();
-		if ($row['cnt'] > 0) {
-			echo '<h1>waiting commands: ';
-			echo $row['cnt'] . "</h1>";
-		} else {
-			echo '<h1>No waiting commands</h1>';
+		$response = array();
+
+		$query = "SELECT count(*) AS cnt FROM command_queue";
+		if ($this->addr > 0) {
+			$response['addr'] = $this->addr;
+			$query .= " WHERE addr=$this->addr";
 		}
+		$result = $db->query($query);
+		$row = $result->fetchArray(SQLITE3_ASSOC);
+
+		$response['commands_count'] = $row['cnt'];
+
 		if ($this->warning) {
-			echo "<div><strong class=\"warning\">This page can't be displayed during command pending.</strong></div>";
-			echo "<div>Automatic refresh every $refresh_value second.</div>";
+			$response['refresh'] = $refresh_value;
 		}
+
+		return $response;
 	}
 }

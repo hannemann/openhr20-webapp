@@ -145,6 +145,9 @@
 .window-input .window-body {
     padding: 0 20px;
 }
+
+.tool-window .button-cancel,
+.tool-window .button-confirm,
 .window-input .button {
     float: left;
     border: none;
@@ -155,10 +158,20 @@
     text-align: center;
     margin: 10px 0 0 0;
 }
+.window .button-confirm,
 .window-input .button-confirm {
     margin: 10px 0 0 0;
     width: calc(50% - 1px);
     border-left: 1px solid white;
+}
+
+/* tool window */
+.tool-window .window-body {
+    position: relative;
+    min-height: calc(100% - 61px);
+}
+.tool-window {
+    border-bottom: none;
 }
 
 /* Confirm Popup */

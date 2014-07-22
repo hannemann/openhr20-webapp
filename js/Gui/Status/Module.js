@@ -63,6 +63,8 @@ Gui.Status.prototype.contextMenu = {
  */
 Gui.Status.prototype.dispatch = function () {
 
+    $(document).on('valveupdate', $.proxy(this.refresh, this));
+
     this.store = App.config;
     this.getController('Overview').dispatchView();
 };
@@ -74,6 +76,7 @@ Gui.Status.prototype.destruct = function () {
 
     this.getController('Overview').destructView();
     this.cache.flush();
+    return this;
 };
 
 /**
@@ -83,9 +86,7 @@ Gui.Status.prototype.refresh = function () {
 
     var me = this;
     setTimeout(function () {
-        me.getController('Overview').destructView();
-        me.cache.flush();
-        me.dispatch();
+        me.destruct().dispatch();
     }, 150);
 };
 

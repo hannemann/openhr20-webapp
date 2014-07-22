@@ -9,8 +9,7 @@ class contend_status extends contend {
 		$cmd = null;
 		if ($_POST['type'] == 'addr') {
 			$result = $db->query("SELECT * FROM log WHERE addr=$this->addr ORDER BY TIME DESC LIMIT 1");
-			// foreach ($_POST as $k=>$p) echo "<div>$k => $p</div>";
-			if ($row = $result->fetchArray()) {
+			if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 				if ((isset($_POST['auto_mode']) && ($row['mode'] != $_POST['auto_mode']))) {
 					switch ($_POST['auto_mode']) {
 						case 'AUTO':
@@ -31,7 +30,7 @@ class contend_status extends contend {
 		} else if ($_POST['type'] == 'all') {
 			foreach ($room_name as $k => $v) {
 				$result = $db->query("SELECT * FROM log WHERE addr=$k ORDER BY time DESC LIMIT 1");
-				if ($row = $result->fetchArray()) {
+				if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 					if ((isset($_POST["auto_mode_$k"]) && ($row['mode'] != $_POST["auto_mode_$k"]))) {
 						switch ($_POST["auto_mode_$k"]) {
 							case 'AUTO':
@@ -68,6 +67,15 @@ class contend_status extends contend {
 			if ($row = $result->fetchArray()) {
 
 				$valve = $room_name[$row['addr']];
+
+				$age = time() - $row['time'];
+				if ($age > $GLOBALS['error_age']) {
+					$response['valves'][$valve]['status']['type'] = 'error';
+				} else if ($age > $GLOBALS['warning_age']) {
+					$response['valves'][$valve]['status']['type'] = 'warning';
+				} else {
+					$response['valves'][$valve]['status']['type'] = 'ok';
+				}
 
 				$response['valves'][$valve]['last_update'] = $row['time'];
 				$response['valves'][$valve]['mode'] = $row['mode'];

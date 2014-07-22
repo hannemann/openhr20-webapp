@@ -14,13 +14,13 @@ $refresh = false;
 
 // controller part
 { // common
-	$addr = (int)$_GET['addr'];
+	$addr = (int)$_REQUEST['addr'];
 	if (isset($room_name[$addr]))
 		$name = $room_name[$addr];
 	else
 		$name = $addr;
-	if (isset($_GET['page'])) {
-		$page = cleanString($_GET['page']);
+	if (isset($_REQUEST['page'])) {
+		$page = cleanString($_REQUEST['page']);
 	} else {
 		$page = "status";
 	}
@@ -65,7 +65,7 @@ $response = $contend->view();
 
 if ($refresh) {
 
-	$response['refresh'] = true;
+	$response['refresh'] = $response['refresh'] ? $response['refresh'] : true;
 }
 
 header("Content-type: application/json");

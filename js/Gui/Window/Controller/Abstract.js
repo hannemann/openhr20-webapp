@@ -75,7 +75,10 @@ Gui.Window.Controller.Abstract.prototype.addObserver = function () {
 Gui.Window.Controller.Abstract.prototype.destructView = function () {
 
     App.Abstract.Controller.prototype.destructView.call(this);
-    this.module.cache.flushByClassKey(this);
+
+    if ("undefined" !== typeof this.cacheKey) {
+        this.module.cache.flushByClassKey(this);
+    }
     $.event.trigger({
         "type" : "destruct.window-" + this.keyInCache
     });
