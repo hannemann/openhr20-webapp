@@ -22,15 +22,16 @@ App.Status.Model.Valve.Resource.prototype.update = function (valve) {
     });
 };
 
-App.Status.Model.Valve.Resource.prototype.poll = function (valve) {
+App.Status.Model.Valve.Resource.prototype.poll = function (valve, callback) {
 
     return this.load({
         "method":"POST",
-        "async":false,
+//        "async":false,
         "data":{
             "page":"status",
             "type":"addr",
             "addr":valve.getData('id')
-        }
+        },
+        "callback":callback
     });
 };

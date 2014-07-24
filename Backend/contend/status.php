@@ -84,6 +84,7 @@ class contend_status extends contend {
 				$response['valves'][$valve]['real_temp'] = $row['real'];
 				$response['valves'][$valve]['name'] = $valve;
 				$response['valves'][$valve]['battery'] = array();
+				$response['valves'][$valve]['id'] = $row['addr'];
 
 
 				if ($GLOBALS['error_mask']['BAT_E'] & $row['error']) {

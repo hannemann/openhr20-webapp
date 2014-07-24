@@ -42,31 +42,36 @@ App.Status.Model.Valve.prototype.update = function () {
  */
 App.Status.Model.Valve.prototype.poll = function (interval) {
 
-    var me = this, count = 0, maxPoll = 10;
+    var me = this, count = 0, maxPoll = 10,
+        name = this.getData('name');
 
     console.log('start polling');
     this.pollint = setInterval(function () {
 
-        var result = me.getResource().poll(me);
+        var result = me.getResource().poll(me, function (result) {
 
-        console.log(result);
-        if (result.status === 200 && result.responseJSON.valves && result.responseJSON.valves[me.getData('name')]) {
+            console.log(result);
+            if (result.valves && result.valves[name]) {
 
-            console.log('success', result.responseJSON.valves[me.getData('name')]);
+                console.log('success', result.valves[name]);
 
-            clearInterval(me.pollint);
+                clearInterval(me.pollint);
 
-            me.initData(result.responseJSON.valves[me.getData('name')]);
+                me.initData(result.valves[name]);
 
-            $.event.trigger('valveupdate');
-        }
-        count += 1;
-        if (count > maxPoll) {
+                me.setData('busy', false);
 
-            console.log('failed');
+                $.event.trigger('valveupdate');
+            }
+            count += 1;
+            if (count > maxPoll) {
 
-            clearInterval(me.pollint);
-        }
+                console.log('failed');
+
+                clearInterval(me.pollint);
+            }
+        });
+
     }, interval);
 };
 

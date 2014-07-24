@@ -9,6 +9,22 @@
 .overview .valve {
     border-bottom: 1px solid white;
     padding: 10px 20px;
+    position: relative;
+}
+
+.overview .busy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    right: 0;
+    text-align: center;
+}
+
+.overview div.busy img {
+    height: 100%;
+    float: none;
 }
 
 .overview .name {

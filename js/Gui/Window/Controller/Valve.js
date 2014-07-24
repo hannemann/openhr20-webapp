@@ -85,14 +85,18 @@ Gui.Window.Controller.Valve.prototype.handleSliderUp = function () {
 
 Gui.Window.Controller.Valve.prototype.sendCommand = function () {
 
+    var me = this, valve = this.getData('valve');
+
     history.back();
 
-    this.getData('valve')
-        .setData(
-        'request', {
-            'wanted':parseFloat(this.view.sliderText.text()) * 100
-        }
-    ).update();
+    $(document).one(this.animationEndEvents, function () {
+
+        valve.setData(
+            'request', {
+                'wanted':parseFloat(me.view.sliderText.text()) * 100
+            }
+        ).setData('busy', true).update();
+    });
 };
 
 /**

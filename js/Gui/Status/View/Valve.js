@@ -15,13 +15,35 @@ Gui.Status.View.Valve.prototype.init = function () {
     this.window = $('<div class="window-status attr">').appendTo(this.node);
     this.mode = $('<div class="mode attr">').appendTo(this.node);
     this.batt = $('<div class="batt attr">').appendTo(this.node);
+    this.busy = $('<div class="busy"><img src="' + App.image.getCommandAnimation() + '"></div>')
+        .appendTo(this.node).hide();
 };
 
 Gui.Status.View.Valve.prototype.render = function () {
 
     this.addName().addTemp().addWanted().addWindow().addMode().addBattery().addError();
 
+    if (this.valve.getData('busy')) {
+
+        this.isBusy(true);
+    }
+
     App.Abstract.View.prototype.render.call(this);
+};
+
+/**
+ * indicate if valve is busy
+ * @param {bool} isBusy
+ */
+Gui.Status.View.Valve.prototype.isBusy = function (isBusy) {
+
+    if (isBusy) {
+
+        this.busy.show();
+    } else {
+
+        this.busy.fadeOut();
+    }
 };
 
 Gui.Status.View.Valve.prototype.addName = function () {
