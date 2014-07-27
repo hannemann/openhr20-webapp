@@ -31,6 +31,29 @@ Gui.Status.View.Valve.prototype.render = function () {
     App.Abstract.View.prototype.render.call(this);
 };
 
+Gui.Status.View.Valve.prototype.update = function () {
+
+    this.name.empty();
+    this.temp.empty();
+    this.wanted.empty();
+    this.window.empty();
+    this.mode.empty();
+    this.batt.empty().removeClass('ok warning error');
+
+
+    this.node.find('.error').remove();
+
+    this.addName().addTemp().addWanted().addWindow().addMode().addBattery().addError();
+
+    if (this.valve.getData('busy')) {
+
+        this.isBusy(true);
+    } else {
+
+        this.isBusy(false);
+    }
+};
+
 /**
  * indicate if valve is busy
  * @param {bool} isBusy

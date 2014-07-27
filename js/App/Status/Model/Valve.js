@@ -25,8 +25,10 @@ App.Status.Model.Valve.prototype.update = function () {
             }
         }
 
+        this.setData('busy', true);
+
         $.event.trigger({
-            "type" : "valveupdate"
+            "type" : "valveupdate-" + this.getData('id')
         });
 
         if (result.responseJSON.refresh) {
@@ -48,7 +50,7 @@ App.Status.Model.Valve.prototype.poll = function (interval) {
     console.log('start polling');
     this.pollint = setInterval(function () {
 
-        var result = me.getResource().poll(me, function (result) {
+        me.getResource().poll(me, function (result) {
 
             console.log(result);
             if (result.valves && result.valves[name]) {
@@ -61,7 +63,7 @@ App.Status.Model.Valve.prototype.poll = function (interval) {
 
                 me.setData('busy', false);
 
-                $.event.trigger('valveupdate');
+                $.event.trigger('valveupdate-' + me.getData('id'));
             }
             count += 1;
             if (count > maxPoll) {

@@ -36,6 +36,8 @@ Gui.Status.Controller.Valve.prototype.dispatchView = function () {
 Gui.Status.Controller.Valve.prototype.addObserver = function () {
 
     this.view.temp.on('click', $.proxy(this.handleTempClick, this));
+
+    $(document).on('valveupdate-' + this.getData('valve').getData('id'), $.proxy(this.handleUpdate, this));
 };
 
 /**
@@ -50,4 +52,12 @@ Gui.Status.Controller.Valve.prototype.handleTempClick = function (e) {
         "type":"Valve",
         "data" : this.data
     });
+};
+
+/**
+ * handle click on temperature icon
+ */
+Gui.Status.Controller.Valve.prototype.handleUpdate = function () {
+
+    this.view.update()
 };
