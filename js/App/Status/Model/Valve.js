@@ -12,6 +12,8 @@ App.Status.Model.Valve.prototype.update = function () {
     var request = this.getData('request'),
         i, me = this;
 
+    App.core.getModule('Gui.Status').lockRefresh();
+
     this.setData('busy', true);
 
     $.event.trigger({
@@ -28,7 +30,7 @@ App.Status.Model.Valve.prototype.update = function () {
 
     this.getResource().update(this, function (result) {
 
-        console.log(result);
+        App.helper.log(result);
 
         $.event.trigger({
             "type" : "valveupdate-" + me.getData('id')
@@ -37,6 +39,9 @@ App.Status.Model.Valve.prototype.update = function () {
         if (result.refresh) {
 
             me.poll(result.refresh * 1000);
+        } else {
+
+            App.core.getModule('Gui.Status').unlockRefresh();
         }
     });
 };
@@ -50,15 +55,15 @@ App.Status.Model.Valve.prototype.poll = function (interval) {
     var me = this, count = 0, maxPoll = 10,
         name = this.getData('name');
 
-    console.log('start polling');
+    App.helper.log('start polling');
     this.pollint = setInterval(function () {
 
         me.getResource().poll(me, function (result) {
 
-            console.log(result);
+            App.helper.log(result);
             if (result.valves && result.valves[name]) {
 
-                console.log('success', result.valves[name]);
+                App.helper.log('success', result.valves[name]);
 
                 clearInterval(me.pollint);
 
@@ -67,13 +72,17 @@ App.Status.Model.Valve.prototype.poll = function (interval) {
                 me.setData('busy', false);
 
                 $.event.trigger('valveupdate-' + me.getData('id'));
+
+                App.core.getModule('Gui.Status').unlockRefresh();
             }
             count += 1;
             if (count > maxPoll) {
 
-                console.log('failed');
+                App.helper.log('failed');
 
                 clearInterval(me.pollint);
+
+                App.core.getModule('Gui.Status').unlockRefresh();
             }
         });
 

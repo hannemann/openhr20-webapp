@@ -40,6 +40,12 @@ Gui.Status.prototype.inDrawer = true;
 Gui.Status.prototype.startPage = true;
 
 /**
+ * indicate if refresh is currently possible
+ * @type {boolean}
+ */
+Gui.Status.prototype.canRefresh = true;
+
+/**
  * context menu definition
  * @type {{}}
  */
@@ -63,6 +69,13 @@ Gui.Status.prototype.contextMenu = {
  */
 Gui.Status.prototype.dispatch = function () {
 
+    var me = this;
+
+    this.refreshInterval = setInterval(function () {
+
+        me.refresh();
+    }, 60000);
+
     $(document).on('valveupdate', $.proxy(this.refresh, this));
 
     this.store = App.config;
@@ -74,6 +87,7 @@ Gui.Status.prototype.dispatch = function () {
  */
 Gui.Status.prototype.destruct = function () {
 
+    clearInterval(this.refreshInterval);
     this.getController('Overview').destructView();
     this.cache.flush();
     return this;
@@ -85,9 +99,34 @@ Gui.Status.prototype.destruct = function () {
 Gui.Status.prototype.refresh = function () {
 
     var me = this;
+
+    if (!this.canRefresh) {
+
+        return;
+    }
+
     setTimeout(function () {
+        var status = App.core.getModule('App.Status');
+        status.cache.flush();
+        status.getModel('Overview').init();
         me.destruct().dispatch();
     }, 150);
+};
+
+/**
+ * lock refresh
+ */
+Gui.Status.prototype.lockRefresh = function () {
+
+    this.canRefresh = false;
+};
+
+/**
+ * unlock refresh
+ */
+Gui.Status.prototype.unlockRefresh = function () {
+
+    this.canRefresh = true;
 };
 
 /**
