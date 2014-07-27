@@ -9,33 +9,36 @@ App.Status.Model.Valve.prototype.cacheKey = 'name';
  */
 App.Status.Model.Valve.prototype.update = function () {
 
-    var result = this.getResource().update(this),
-        request = this.getData('request'),
-        i;
+    var request = this.getData('request'),
+        i, me = this;
 
-    console.log(result);
+    this.setData('busy', true);
 
-    if (result.status === 200) {
+    $.event.trigger({
+        "type" : "valveupdate-" + this.getData('id')
+    });
+
+    this.getResource().update(this, function (result) {
+
+        console.log(result);
 
         for (i in request) {
 
-            if (request.hasOwnProperty(i) && this.hasData(i)) {
+            if (request.hasOwnProperty(i) && me.hasData(i)) {
 
-                this.setData(i, request[i]);
+                me.setData(i, request[i]);
             }
         }
 
-        this.setData('busy', true);
-
         $.event.trigger({
-            "type" : "valveupdate-" + this.getData('id')
+            "type" : "valveupdate-" + me.getData('id')
         });
 
-        if (result.responseJSON.refresh) {
+        if (result.refresh) {
 
-            this.poll(result.responseJSON.refresh * 1000);
+            me.poll(result.refresh * 1000);
         }
-    }
+    });
 };
 
 /**

@@ -8,17 +8,18 @@ App.Status.Model.Valve.Resource.prototype.urls = {
     "load": "Backend/"
 };
 
-App.Status.Model.Valve.Resource.prototype.update = function (valve) {
+App.Status.Model.Valve.Resource.prototype.update = function (valve, callback) {
 
-    return this.load({
+    this.load({
         "method":"POST",
-        "async":false,
+//        "async":false,
         "data":{
             "page":"status",
             "type":"addr",
             "addr":valve.getData('id'),
             "w_temp":valve.getData('request').wanted / 100
-        }
+        },
+        "callback":callback
     });
 };
 
