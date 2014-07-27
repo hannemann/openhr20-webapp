@@ -14,5 +14,8 @@ App.core.de_DE = {
     "Reload App" : "Neu Laden",
     "Mode: AUTO" : "Modus: Automatik",
     "Mode: MANU" : "Modus: Manuell",
+    "Mode: -" : "Modus: -",
+    "AUTO" : "Automatik",
+    "MANU" : "Manuell",
     "Battery:" : "Batterie:"
 };

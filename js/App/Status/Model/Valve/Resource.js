@@ -10,15 +10,19 @@ App.Status.Model.Valve.Resource.prototype.urls = {
 
 App.Status.Model.Valve.Resource.prototype.update = function (valve, callback) {
 
+    var data = {
+        "page":"status",
+        "type":"addr",
+        "addr":valve.getData('id'),
+        "w_temp":valve.getData('request').wanted / 100
+    };
+
+    data["auto_mode"] = valve.getData('mode');
+
     this.load({
         "method":"POST",
 //        "async":false,
-        "data":{
-            "page":"status",
-            "type":"addr",
-            "addr":valve.getData('id'),
-            "w_temp":valve.getData('request').wanted / 100
-        },
+        "data":data,
         "callback":callback
     });
 };

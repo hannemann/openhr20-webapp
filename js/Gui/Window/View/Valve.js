@@ -19,7 +19,7 @@ Gui.Window.View.Valve.prototype.render = function () {
 
     this.addHeader().addButtons().addThermometer().setTemp();
 
-    this.node.addClass('collapsed tool-window');
+    this.node.addClass('collapsed tool-window window-valve');
 
     Gui.Window.View.Abstract.prototype.render.call(this);
 
@@ -52,6 +52,19 @@ Gui.Window.View.Valve.prototype.addThermometer = function () {
  * @returns {Gui.Window.View.Valve}
  */
 Gui.Window.View.Valve.prototype.addButtons = function () {
+
+    var mode = this.valve.getData('mode');
+
+    this.auto = $('<div class="button button-auto">').text(App.core.translate('AUTO'));
+
+    this.manu = $('<div class="button button-manu">').text(App.core.translate('MANU'));
+
+    $('<div class="button-wrapper">').append(this.auto).append(this.manu).appendTo(this.body);
+
+    if ('-' !== mode) {
+
+        this[mode.toLowerCase()].addClass('active');
+    }
 
     this.cancel = $('<div class="button button-cancel">').text(App.core.translate('Cancel')).appendTo(this.node);
 

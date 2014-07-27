@@ -18,17 +18,17 @@ App.Status.Model.Valve.prototype.update = function () {
         "type" : "valveupdate-" + this.getData('id')
     });
 
+    for (i in request) {
+
+        if (request.hasOwnProperty(i) && me.hasData(i)) {
+
+            me.setData(i, request[i]);
+        }
+    }
+
     this.getResource().update(this, function (result) {
 
         console.log(result);
-
-        for (i in request) {
-
-            if (request.hasOwnProperty(i) && me.hasData(i)) {
-
-                me.setData(i, request[i]);
-            }
-        }
 
         $.event.trigger({
             "type" : "valveupdate-" + me.getData('id')

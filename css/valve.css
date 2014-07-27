@@ -56,3 +56,20 @@
     background: rgba(255,255,255,.01);
     z-index: 1;
 }
+
+.window-valve .button-wrapper {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    width: 100px;
+}
+.window-valve .button-wrapper .button {
+    float: none;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(131, 131, 131);
+}
+.window-valve .button-wrapper .button.active {
+    color: rgb(132, 198, 255);
+}

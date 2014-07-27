@@ -13,6 +13,8 @@ Gui.Window.Controller.Valve.prototype.init = function () {
     this.view.setParentView(
         {"node":$('body')}
     );
+
+    this.request = {};
 };
 
 Gui.Window.Controller.Valve.prototype.dispatchView = function () {
@@ -27,6 +29,10 @@ Gui.Window.Controller.Valve.prototype.addObserver = function () {
     this.view.activator.on('mousedown', $.proxy(this.handleSliderDown, this));
 
     this.view.activator.on('touchstart', $.proxy(this.handleSliderDown, this));
+
+    this.view.auto.on('click', $.proxy(this.handleAuto, this));
+
+    this.view.manu.on('click', $.proxy(this.handleManu, this));
 
     $(window).on('mousemove', $.proxy(this.handleSliderMove, this));
 
@@ -83,19 +89,32 @@ Gui.Window.Controller.Valve.prototype.handleSliderUp = function () {
     this.sliderMove = false;
 };
 
+Gui.Window.Controller.Valve.prototype.handleAuto = function () {
+
+    this.request.mode = "AUTO";
+    this.view.manu.removeClass('active');
+    this.view.auto.addClass('active');
+};
+
+Gui.Window.Controller.Valve.prototype.handleManu = function () {
+
+    this.request.mode = "MANU";
+    this.view.auto.removeClass('active');
+    this.view.manu.addClass('active');
+};
+
 Gui.Window.Controller.Valve.prototype.sendCommand = function () {
 
     var me = this, valve = this.getData('valve');
+
+    this.request.wanted = parseFloat(me.view.sliderText.text()) * 100;
 
     history.back();
 
     $(document).one(this.animationEndEvents, function () {
 
-        valve.setData(
-            'request', {
-                'wanted':parseFloat(me.view.sliderText.text()) * 100
-            }
-        ).setData('busy', true).update();
+        valve.setData('request', me.request).update();
+        me.request = {};
     });
 };
 
