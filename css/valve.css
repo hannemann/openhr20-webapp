@@ -73,3 +73,19 @@
 .window-valve .button-wrapper .button.active {
     color: rgb(132, 198, 255);
 }
+
+.window-valve .indicator {
+    position: absolute;
+    top: 170px;
+    left: 38px;
+    width: 72px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .3s linear;
+    background: rgba(0,0,0,0.5);
+    padding: 3px 0;
+    border-radius: 8px;
+}
+.window-valve .indicator.active {
+    opacity: 1;
+}

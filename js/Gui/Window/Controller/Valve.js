@@ -1,3 +1,7 @@
+/**
+ * @constructor
+ * @property {Gui.Window.View.Valve} view
+ */
 Gui.Window.Controller.Valve = function () {};
 
 Gui.Window.Controller.Valve.prototype = new Gui.Window.Controller.Abstract();
@@ -61,6 +65,8 @@ Gui.Window.Controller.Valve.prototype.handleSliderDown = function (e) {
 
         this.delta = e.clientY - this.view.slider.offset().top;
     }
+
+    this.view.tempIndicator.addClass('active');
 };
 
 Gui.Window.Controller.Valve.prototype.handleSliderMove = function (e) {
@@ -87,6 +93,8 @@ Gui.Window.Controller.Valve.prototype.handleSliderUp = function () {
         this.view.setSliderPos();
     }
     this.sliderMove = false;
+
+    this.view.tempIndicator.removeClass('active');
 };
 
 Gui.Window.Controller.Valve.prototype.handleAuto = function () {

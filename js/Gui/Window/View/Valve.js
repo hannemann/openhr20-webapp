@@ -42,6 +42,7 @@ Gui.Window.View.Valve.prototype.addThermometer = function () {
     this.activator = $('<div class="activator">').appendTo(this.slider);
     this.thermo.append('<div class="scala">');
     this.thermo.append('<div class="ball">');
+    this.tempIndicator = $('<div class="indicator">').appendTo(this.body);
     this.setSliderPos(this.getSliderPos());
     this.thermo.appendTo(this.body);
     return this;
@@ -79,6 +80,7 @@ Gui.Window.View.Valve.prototype.setTemp = function () {
 
     temp = temp%100 == 0 ? temp / 100 + '.0' : temp / 100;
 
+    this.tempIndicator.text(temp + ' °C');
     this.sliderText.text(temp + ' °C');
 };
 Gui.Window.View.Valve.prototype.getSliderPos = function () {
@@ -103,6 +105,8 @@ Gui.Window.View.Valve.prototype.setSliderPos = function (pos) {
         return;
     }
 
+    pos = parseInt(pos, 10);
+
     if (pos >= 255) {
         pos = 255;
     }
@@ -117,6 +121,7 @@ Gui.Window.View.Valve.prototype.setSliderPos = function (pos) {
 
     if ((pos - 15) % 6 == 0) {
         this.sliderText.text(temp + ' °C');
+        this.tempIndicator.text(temp + ' °C');
         this.sliderPos = pos;
     }
 };
